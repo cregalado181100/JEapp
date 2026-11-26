@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>J&E - Enderezado y Pintura</title>
+<style>
+*{box-sizing:border-box;font-family:Arial,sans-serif}body{margin:0;background:#111;color:#fff}
+header{background:#000;padding:16px;text-align:center;border-bottom:4px solid #8A1220}
+header img{max-width:260px;width:90%;border-radius:12px}
+h1{margin:8px 0 0;color:#fff;font-size:26px}h1 span{color:#E63946}
+.sub{color:#ccc;font-size:14px}
+nav{display:flex;gap:8px;padding:10px;flex-wrap:wrap;justify-content:center}
+button{border:0;border-radius:12px;padding:12px 14px;font-weight:bold;cursor:pointer}
+.btn{background:#8A1220;color:#fff}.btn2{background:#222;color:#fff;border:1px solid #444}
+.card{background:#1c1c1c;margin:12px;border-radius:14px;padding:14px;border:1px solid #333}
+input,select,textarea{width:100%;padding:11px;border-radius:10px;border:1px solid #444;background:#222;color:#fff;margin:5px 0}
+label{font-size:13px;color:#ccc}
+.row{display:flex;gap:8px}.row>*{flex:1}
+.item{display:flex;justify-content:space-between;gap:8px;background:#222;padding:10px;border-radius:10px;margin:6px 0}
+.total{font-size:28px;color:#fff;text-align:right}.total b{color:#ff4d5a}
+.small{font-size:12px;color:#aaa}.hidden{display:none}
+.switch{display:flex;align-items:center;justify-content:space-between;background:#222;padding:12px;border-radius:10px;margin:8px 0}
+.toggle{width:52px;height:28px;background:#444;border-radius:20px;position:relative;cursor:pointer}.toggle.on{background:#16a34a}.toggle:after{content:'';position:absolute;top:3px;left:3px;width:22px;height:22px;background:#fff;border-radius:50%;transition:.2s}.toggle.on:after{left:27px}
+.progress{height:12px;background:#333;border-radius:10px;overflow:hidden}.progress div{height:100%;background:#8A1220}
+.step{display:flex;gap:10px;align-items:center;background:#222;padding:10px;border-radius:10px;margin:6px 0}
+.dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#444}
+.done{background:#16a34a}.doing{background:#8A1220}
+</style>
+<style>
+/* BOTONES BLANCOS - FORMAS DIFERENTES */
+.btn, .btn2, button.btn, button.btn2 { background:#ffffff !important; color:#111 !important; border:2px solid #ffffff !important; font-weight:700 !important; }
+.btn { border-radius:28px !important; padding:14px 22px !important; box-shadow:0 4px 12px rgba(255,255,255,0.18) !important; }
+.btn2 { border-radius:12px !important; padding:12px 16px !important; background:#f2f2f2 !important; border:2px solid #fff !important; }
+.topnav button, nav button { border-radius:999px !important; background:#fff !important; color:#111 !important; margin:4px 4px !important; padding:10px 14px !important; font-size:13px !important; }
+.topnav { display:flex !important; flex-wrap:wrap !important; gap:6px !important; justify-content:center !important; }
+/* Inicio: boton grande en forma pastilla blanca */
+#inicio .btn { border-radius:999px !important; padding:18px 20px !important; font-size:19px !important; width:100% !important; background:#fff !important; color:#000 !important; }
+/* Botones de agregar: cuadrados redondeados */
+button[onclick*="addToCot"], button[onclick*="addInv"], button[onclick*="addService"] { border-radius:14px !important; }
+/* Botones de accion pequeños: circulares */
+button[onclick*="splice"], button[onclick*="del"] { border-radius:50% !important; width:36px !important; height:36px !important; padding:0 !important; }
+/* Botones de cotizacion guardada: forma alargada */
+#cot button { border-radius:20px !important; }
+</style>
+
+<style>
+/* CADA BOTON DIFERENTE */
+.topnav { display:grid !important; grid-template-columns: 1fr 1fr !important; gap:10px !important; padding:10px !important; }
+.topnav button:nth-child(1){ border-radius:999px !important; background:#ffffff !important; color:#000 !important; padding:16px 8px !important; font-size:15px !important; font-weight:800 !important; border:3px solid #fff !important; }
+.topnav button:nth-child(2){ border-radius:6px !important; background:#ffffff !important; color:#000 !important; padding:16px 8px !important; font-size:15px !important; font-weight:800 !important; border:3px solid #fff !important; clip-path: polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%) !important; }
+.topnav button:nth-child(3){ border-radius:50% !important; width:88px !important; height:88px !important; margin:auto !important; background:#ffffff !important; color:#000 !important; font-size:13px !important; line-height:1.1 !important; font-weight:800 !important; border:3px solid #fff !important; }
+.topnav button:nth-child(4){ border-radius:18px 4px 18px 4px !important; background:#ffffff !important; color:#000 !important; padding:16px 8px !important; font-size:15px !important; font-weight:800 !important; border:3px solid #fff !important; }
+.topnav button:nth-child(5){ border-radius:0 22px 0 22px !important; background:#ffffff !important; color:#000 !important; padding:16px 8px !important; font-size:15px !important; font-weight:800 !important; border:3px solid #fff !important; }
+.topnav button:nth-child(6){ border-radius:12px 12px 2px 2px !important; background:#ffffff !important; color:#000 !important; padding:16px 8px !important; font-size:15px !important; font-weight:800 !important; border:3px solid #fff !important; }
+/* Botones dentro de las secciones tambien diferentes */
+#serv button, #cot button, #proc button, #hist button { border-radius:999px !important; }
+#serv button:nth-of-type(2), #cot button:nth-of-type(2){ border-radius:8px !important; }
+#inicio .btn{ border-radius:999px !important; background:#fff !important; color:#000 !important; padding:20px !important; font-size:20px !important; box-shadow:0 6px 0 #888 !important; }
+</style>
+
+<style>
+/* MEJORADO - MAS LIMPIO Y PROFESIONAL */
+body{ background:#0a0a0a !important; font-family:'Segoe UI', Arial, sans-serif !important; }
+header{ background:radial-gradient(ellipse at top, #2a0004 0%, #000 70%) !important; padding:28px 16px 20px !important; border-bottom:1px solid #222 !important; }
+header img{ width:180px !important; height:180px !important; object-fit:cover !important; border-radius:50% !important; border:4px solid #fff !important; box-shadow:0 10px 30px rgba(0,0,0,0.6), 0 0 0 3px #8A1220 !important; }
+.card{ background:#171717 !important; border:1px solid #262626 !important; border-radius:20px !important; padding:20px !important; margin:14px !important; box-shadow:0 8px 24px rgba(0,0,0,0.35) !important; }
+input, select, textarea{ background:#1f1f1f !important; border:1px solid #333 !important; border-radius:12px !important; padding:13px !important; font-size:15px !important; }
+input:focus, select:focus{ border-color:#8A1220 !important; outline:none !important; box-shadow:0 0 0 2px rgba(138,18,32,0.4) !important; }
+.btn{ background:#fff !important; color:#000 !important; border-radius:999px !important; padding:15px 20px !important; font-size:16px !important; font-weight:800 !important; box-shadow:0 4px 14px rgba(255,255,255,0.15) !important; }
+.btn2{ background:#222 !important; color:#fff !important; border:1px solid #333 !important; border-radius:14px !important; }
+.item{ background:#1f1f1f !important; border:1px solid #2a2a2a !important; border-radius:14px !important; padding:14px !important; }
+h2{ font-size:22px !important; font-weight:800 !important; letter-spacing:-0.3px !important; }
+h3{ font-size:16px !important; font-weight:700 !important; color:#eee !important; }
+.small{ color:#999 !important; }
+.total{ background:#fff !important; color:#000 !important; border-radius:16px !important; padding:16px !important; margin-top:12px !important; }
+.total b{ color:#8A1220 !important; }
+/* Menu boton superior */
+button[onclick*="menuTop"]{ background:#fff !important; color:#000 !important; border-radius:999px !important; padding:10px 18px !important; font-weight:800 !important; box-shadow:0 4px 12px rgba(255,255,255,0.2) !important; }
+</style>
+</head><body>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:12px 14px;position:sticky;top:0;background:#000;z-index:99;border-bottom:1px solid #222">
+<div style="font-weight:800;font-size:19px"><span style="font-size:22px;font-weight:900;letter-spacing:1px;background:linear-gradient(90deg,#fff,#ff4d5a);-webkit-background-clip:text;-webkit-text-fill-color:transparent">J&E</span> <span style="font-size:11px;color:#fff;font-weight:700;letter-spacing:2px;background:#8A1220;padding:4px 8px;border-radius:999px">ENDEREZADO Y PINTURA</span></div>
+<div style="position:relative">
+<button onclick="document.getElementById('menuTop').style.display=document.getElementById('menuTop').style.display==='block'?'none':'block'" style="background:#fff;color:#000;border:none;border-radius:10px;padding:10px 14px;font-weight:800;font-size:16px">☰ Menú</button>
+
+<div id="menuTop" style="display:none;position:fixed;right:0;top:0;height:100%;width:82%;max-width:320px;background:linear-gradient(180deg,#1a0002 0%,#2a0004 40%,#000 100%);color:#fff;z-index:999;box-shadow:-10px 0 30px rgba(0,0,0,0.6);padding:22px 18px;animation:slideMenu .3s ease">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px"><div><div style="font-size:32px;font-weight:900;letter-spacing:2px;background:linear-gradient(90deg,#fff,#ff4d5a);-webkit-background-clip:text;-webkit-text-fill-color:transparent">J&E</div><div style="font-size:12px;color:#ccc">Enderezado y Pintura</div></div><button onclick="document.getElementById('menuTop').style.display='none'" style="background:#fff;color:#000;border:none;border-radius:50%;width:38px;height:38px;font-size:18px;font-weight:800">✕</button></div>
+<div style="font-size:12px;color:#aaa;letter-spacing:2px;margin-bottom:12px">MENÚ PRINCIPAL</div>
+<button onclick="show('inicio');document.getElementById('menuTop').style.display='none'" style="display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:16px;background:#fff;color:#000;border:none;border-radius:999px;margin-bottom:12px;font-weight:800;font-size:16px"><span style="font-size:22px">🏠</span> Inicio <span style="margin-left:auto">›</span></button>
+<button onclick="show('cot');document.getElementById('menuTop').style.display='none'" style="display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:16px;background:#8A1220;color:#fff;border:none;border-radius:16px;margin-bottom:12px;font-weight:800;font-size:16px;box-shadow:0 6px 0 #5a0a14"><span style="font-size:22px">🧾</span> Nueva Cotización <span style="margin-left:auto">›</span></button>
+<button onclick="show('serv');document.getElementById('menuTop').style.display='none'" style="display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:16px;background:#222;color:#fff;border:1px solid #444;border-radius:16px 4px 16px 4px;margin-bottom:12px;font-weight:700;font-size:16px"><span style="font-size:22px">🔧</span> Material y Mano de Obra <span style="margin-left:auto">›</span></button>
+<button onclick="show('proc');document.getElementById('menuTop').style.display='none'" style="display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:16px;background:#222;color:#fff;border:1px solid #444;border-radius:50px 16px 16px 50px;margin-bottom:12px;font-weight:700;font-size:16px"><span style="font-size:22px">🚗</span> Proceso del Vehículo <span style="margin-left:auto">›</span></button>
+<button onclick="show('hist');document.getElementById('menuTop').style.display='none'" style="display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:16px;background:#222;color:#fff;border:1px solid #444;border-radius:12px;margin-bottom:12px;font-weight:700;font-size:16px"><span style="font-size:22px">📋</span> Historial <span style="margin-left:auto">›</span></button>
+<div style="position:absolute;bottom:20px;left:18px;right:18px;text-align:center;font-size:13px;color:#aaa">Tel: 625 111 2443<br>J&E Enderezado y Pintura</div>
+</div>
+<style>@keyframes slideMenu{from{transform:translateX(100%)}to{transform:translateX(0)}}</style>
+</div></div>
+
+<header><img src="logo.jpg" alt="J&E"><h1 style="font-size:44px;font-weight:900;letter-spacing:2px;line-height:1;margin:10px 0 4px;text-transform:uppercase;background:linear-gradient(90deg,#fff 20%,#ff4d5a 50%,#fff 80%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 4px 20px rgba(255,77,90,0.3)">J&E</h1><div style="font-size:15px;font-weight:700;letter-spacing:6px;color:#fff;text-transform:uppercase;background:#8A1220;display:inline-block;padding:6px 16px;border-radius:999px;box-shadow:0 4px 12px rgba(138,18,32,0.6)">✦ Enderezado y Pintura ✦</div><div class="sub">WhatsApp: 625 111 2443 • Cotizaciones y Proceso del Vehículo</div></header>
+
+
+<div id="inicio" class="card" style="text-align:center;padding:36px 16px"><h2 style="font-size:30px;margin:8px 0">J&E</h2><p style="font-size:16px;color:#ccc;margin:4px 0">Enderezado y Pintura</p><p style="font-size:14px;color:#999">Cotizaciones rápidas • Enderezado y Pintura • Cuauhtémoc</p><br><button class="btn" style="width:100%;padding:18px;font-size:19px;margin:6px 0;border-radius:999px;background:#fff;color:#000" onclick="show('cot')">+ Nueva Cotización</button><br><br><p style="font-size:13px;color:#888">Tel: 625 111 2443</p></div>
+<div id="serv" class="card hidden"><h2>Material y Mano de Obra</h2><p class='small'>Aquí agregas tú todo: en Material pones pintura, pasta, lijas, etc. En Mano de Obra pones enderezado, pintura, pulido, etc. Todo lo que agregues sale en la cotización.</p><div style='display:flex;gap:8px;margin:8px 0'><button class='btn' onclick="document.getElementById('nCat').value='Material';document.getElementById('nNom').placeholder='Material ej: Pintura guinda (litro)';">+ Material</button><button class='btn' onclick="document.getElementById('nCat').value='Mano de Obra';document.getElementById('nNom').placeholder='Mano de Obra ej: Enderezado de puerta';">+ Mano de Obra</button></div><input id="busc" placeholder="Buscar material o mano de obra..." oninput="renderServ()">
+<div id="listaServ"></div><h3>Agregar Material o Mano de Obra</h3><input id="nNom" placeholder="Nombre ej: Pintura de facia"><input id="nPre" type="number" placeholder="Precio ej: 1500"><select id="nCat"><option>Material</option><option>Mano de Obra</option><option>Enderezado</option><option>Pintura</option><option>Pulido</option></select><button class="btn" onclick="addServ()">Agregar Material / Mano de Obra</button></div>
+
+<div id="cot" class="card hidden"><h2>Nueva Cotización</h2>
+<label>Cliente</label><input id="cCliente" placeholder="Nombre del cliente">
+<label>Teléfono</label><input id="cTel" placeholder="Teléfono">
+<div class="row"><input id="cMarca" placeholder="Marca"><input id="cModelo" placeholder="Modelo"></div>
+<div class="row"><input id="cAnio" placeholder="Año"><input id="cPlacas" placeholder="Placas"></div>
+<input id="cColor" placeholder="Color del carro">
+<h3>Agregar Material y Mano de Obra a la cotización - Puedes agregar VARIOS</h3><p class='small'>Puedes agregar TODOS los que quieras en la misma cotización: elige uno, dale Agregar, elige otro, dale Agregar, y así. Abajo se van sumando todos.</p><select id="selServ"></select><div class="row"><input id="selCant" type="number" value="1"><button class="btn" onclick="addToCot()">+ Agregar otro a la cotización</button></div>
+<div id="lineas"></div>
+<label>Descuento $</label><input id="desc" type="number" value="0" oninput="calc()">
+<div class="switch"><span>Cobrar IVA (16%)</span><div id="ivaT" class="toggle on" onclick="this.classList.toggle('on');calc()"></div></div>
+<label>Notas</label><textarea id="notas">Se requiere 50% de anticipo para iniciar el trabajo. Cotización válida por 7 días.</textarea>
+<div class="total">TOTAL: <b id="totalTxt">$0.00</b></div><div class="small" id="desglose"></div>
+<button class="btn" onclick="guardarCot()">Guardar Cotización</button> <button class="btn2" onclick="compartirWA()">Compartir por WhatsApp</button>
+</div>
+
+<div id="proc" class="card hidden"><h2>Proceso del Vehículo</h2>
+<div class="row"><input id="pCliente" placeholder="Cliente"><input id="pAuto" placeholder="Vehículo / Placas"></div>
+<button class="btn" onclick="addVeh()">+ Agregar Vehículo</button><div id="listaVeh"></div></div>
+
+<div id="hist" class="card hidden"><h2>Historial de Cotizaciones</h2><div id="listaHist"></div></div>
+
+
+<script>
+let servicios = JSON.parse(localStorage.getItem('je_serv')||'null') || [
+{n:'Enderezado de chasis / bastidor',p:4500,c:'Mano de Obra'},{n:'Enderezado de puerta',p:1200,c:'Mano de Obra'},{n:'Enderezado de cofre',p:1400,c:'Mano de Obra'},{n:'Enderezado de cajuela',p:1200,c:'Mano de Obra'},{n:'Enderezado de salpicadera',p:950,c:'Mano de Obra'},{n:'Cuadratura de marco',p:3500,c:'Mano de Obra'},{n:'Pintura general completa',p:9500,c:'Mano de Obra'},{n:'Pintura por pieza',p:1850,c:'Mano de Obra'},{n:'Pintura de facia',p:1500,c:'Mano de Obra'},{n:'Pintura de cofre',p:2200,c:'Mano de Obra'},{n:'Pintura de toldo',p:2800,c:'Mano de Obra'},{n:'Pulido y abrillantado completo',p:1200,c:'Mano de Obra'},{n:'Pulido de faros',p:350,c:'Mano de Obra'},{n:'Detallado',p:900,c:'Mano de Obra'},{n:'Cambio de parabrisas',p:800,c:'Mano de Obra'}];
+if(!localStorage.getItem('je_serv seeded2')){servicios.push({n:'Pintura guinda (litro)',p:850,c:'Material'},{n:'Transparente / Clear (litro)',p:650,c:'Material'},{n:'Pasta / Relleno',p:280,c:'Material'},{n:'Lijas (paquete)',p:120,c:'Material'},{n:'Thinner (litro)',p:90,c:'Material'});localStorage.setItem('je_serv seeded2','1');localStorage.setItem('je_serv',JSON.stringify(servicios));}
+let cotItems=[], cots=JSON.parse(localStorage.getItem('je_cots')||'[]'), vehs=JSON.parse(localStorage.getItem('je_veh')||'[]');
+let pasos=['Ingreso / Revisión','Desarmado','Enderezado','Preparación / Pasta y lija','Pintura / Cabina','Pulido y abrillantado','Armado y revisión final','Listo para entrega'];
+function save(){localStorage.setItem('je_serv',JSON.stringify(servicios));localStorage.setItem('je_cots',JSON.stringify(cots));localStorage.setItem('je_veh',JSON.stringify(vehs));}
+function show(id){['inicio','serv','cot','proc','hist'].forEach(x=>document.getElementById(x).classList.add('hidden'));document.getElementById(id).classList.remove('hidden');
+// include inv in show
+const _oldShow = show;
+show = function(id){['inicio','serv','cot','proc','hist'].forEach(x=>{let el=document.getElementById(x); if(el) el.classList.add('hidden')});document.getElementById(id).classList.remove('hidden');renderAll();}
+
+renderAll();}
+function fmt(n){return '$'+Number(n).toLocaleString('es-MX',{minimumFractionDigits:2})}
+function renderServ(){let q=(document.getElementById('busc').value||'').toLowerCase();let h='';servicios.forEach((s,i)=>{if(!s.n.toLowerCase().includes(q))return;h+=`<div class="item"><span><b>${s.n}</b><br><span class="small">${s.c}</span></span><span><b>${fmt(s.p)}</b> <button onclick="addToCotIdx(${i})">+ Cotizar</button> <button onclick="delServ(${i})">✕</button></span></div>`});document.getElementById('listaServ').innerHTML=h;document.getElementById('quick').innerHTML=h;let sel=document.getElementById('selServ');sel.innerHTML=servicios.map((s,i)=>`<option value="${i}">${s.n} - ${fmt(s.p)}</option>`).join('');}
+function addServ(){let n=document.getElementById('nNom').value,p=Number(document.getElementById('nPre').value),c=document.getElementById('nCat').value||'General';if(!n||!p)return alert('Pon nombre y precio');servicios.push({n,p,c});save();renderServ();alert('Agregado a Material y Mano de Obra');}
+function delServ(i){if(confirm('¿Borrar?')){servicios.splice(i,1);save();renderServ();}}
+function addToCotIdx(i){show('cot');document.getElementById('selServ').value=i;addToCot();}
+function addToCot(){let i=Number(document.getElementById('selServ').value),cant=Number(document.getElementById('selCant').value||1);let s=servicios[i];cotItems.push({n:s.n,p:s.p,cant});renderCot();}
+function renderCot(){let h='';cotItems.forEach((it,i)=>{h+=`<div class="item"><span>${it.n} x ${it.cant}</span><span>${fmt(it.p*it.cant)} <button onclick="cotItems.splice(${i},1);renderCot()">✕</button></span></div>`});document.getElementById('lineas').innerHTML=h;calc();}
+function calc(){let sub=cotItems.reduce((a,b)=>a+b.p*b.cant,0);let desc=Number(document.getElementById('desc').value||0);let ivaOn=document.getElementById('ivaT').classList.contains('on');let iva=ivaOn?Math.max(0,(sub-desc)*0.16):0;let tot=sub-desc+iva;document.getElementById('totalTxt').textContent=fmt(tot);document.getElementById('desglose').textContent=`Subtotal ${fmt(sub)} • Descuento ${fmt(desc)} • IVA ${fmt(iva)}`;}
+function guardarCot(){let cli=document.getElementById('cCliente').value||'Sin nombre';let tot=document.getElementById('totalTxt').textContent;let folio='J&E-'+String(cots.length+1).padStart(3,'0');cots.unshift({folio,cli,auto:document.getElementById('cMarca').value+' '+document.getElementById('cModelo').value+' '+document.getElementById('cAnio').value,placas:document.getElementById('cPlacas').value,total:tot,items:[...cotItems],fecha:new Date().toLocaleDateString()});save();cotItems=[];renderCot();
+let inv=JSON.parse(localStorage.getItem('je_inv')||'[]');
+function saveInv(){localStorage.setItem('je_inv',JSON.stringify(inv));}
+function addInv(){let n=document.getElementById('iNom').value;let c=Number(document.getElementById('iCant').value||0);let m=Number(document.getElementById('iMin').value||2);let p=Number(document.getElementById('iPre').value||0);let nota=document.getElementById('iNota').value||'';if(!n)return alert('Pon el nombre del material');inv.push({n,c,m,p,nota});saveInv();renderInv();document.getElementById('iNom').value='';document.getElementById('iCant').value='';document.getElementById('iNota').value='';alert('Agregado al inventario');}
+function renderInv(){let h='';inv.forEach((it,i)=>{let bajo=it.c<=it.m;h+=`<div class="item" style="border:${bajo?'2px solid #ff4d5a':'1px solid #333'}"><span><b>${it.n}</b><br><span class="small">${it.nota} • Mínimo: ${it.m} • Costo: $${it.p}</span><br>${bajo?'<b style="color:#ff4d5a">⚠ ¡QUEDA POCO! Hay que comprar</b>':'<span style="color:#22c55e">En stock</span>'}</span><span style="text-align:right"><b style="font-size:20px">${it.c}</b><br><button onclick="inv[${i}].c++;saveInv();renderInv()">+1</button> <button onclick="inv[${i}].c=Math.max(0,inv[${i}].c-1);saveInv();renderInv()">Usar -1</button><br><button onclick="inv.splice(${i},1);saveInv();renderInv()">✕ Borrar</button></span></div>`});document.getElementById('listaInv').innerHTML=h||'Aún no hay material. Agrega tu primer material arriba.';}
+const _oldRenderAll = renderAll;
+renderAll = function(){_oldRenderAll(); renderInv();};
+// include inv in show
+const _oldShow = show;
+show = function(id){['inicio','serv','cot','proc','hist'].forEach(x=>{let el=document.getElementById(x); if(el) el.classList.add('hidden')});document.getElementById(id).classList.remove('hidden');renderAll();}
+
+renderAll();alert('Cotización '+folio+' guardada');show('hist');}
+function compartirWA(){let cli=document.getElementById('cCliente').value||'';let auto=document.getElementById('cMarca').value+' '+document.getElementById('cModelo').value;let txt=`J&E Enderezado y Pintura%0ACliente: ${cli}%0AVehículo: ${auto}%0ATotal: ${document.getElementById('totalTxt').textContent}%0AWhatsApp: 625 111 2443`;window.open('https://wa.me/526251112443?text='+txt,'_blank');}
+function addVeh(){let c=document.getElementById('pCliente').value||'Cliente';let a=document.getElementById('pAuto').value||'Vehículo';vehs.push({c,a,paso:0,notas:''});save();
+let inv=JSON.parse(localStorage.getItem('je_inv')||'[]');
+function saveInv(){localStorage.setItem('je_inv',JSON.stringify(inv));}
+function addInv(){let n=document.getElementById('iNom').value;let c=Number(document.getElementById('iCant').value||0);let m=Number(document.getElementById('iMin').value||2);let p=Number(document.getElementById('iPre').value||0);let nota=document.getElementById('iNota').value||'';if(!n)return alert('Pon el nombre del material');inv.push({n,c,m,p,nota});saveInv();renderInv();document.getElementById('iNom').value='';document.getElementById('iCant').value='';document.getElementById('iNota').value='';alert('Agregado al inventario');}
+function renderInv(){let h='';inv.forEach((it,i)=>{let bajo=it.c<=it.m;h+=`<div class="item" style="border:${bajo?'2px solid #ff4d5a':'1px solid #333'}"><span><b>${it.n}</b><br><span class="small">${it.nota} • Mínimo: ${it.m} • Costo: $${it.p}</span><br>${bajo?'<b style="color:#ff4d5a">⚠ ¡QUEDA POCO! Hay que comprar</b>':'<span style="color:#22c55e">En stock</span>'}</span><span style="text-align:right"><b style="font-size:20px">${it.c}</b><br><button onclick="inv[${i}].c++;saveInv();renderInv()">+1</button> <button onclick="inv[${i}].c=Math.max(0,inv[${i}].c-1);saveInv();renderInv()">Usar -1</button><br><button onclick="inv.splice(${i},1);saveInv();renderInv()">✕ Borrar</button></span></div>`});document.getElementById('listaInv').innerHTML=h||'Aún no hay material. Agrega tu primer material arriba.';}
+const _oldRenderAll = renderAll;
+renderAll = function(){_oldRenderAll(); renderInv();};
+// include inv in show
+const _oldShow = show;
+show = function(id){['inicio','serv','cot','proc','hist'].forEach(x=>{let el=document.getElementById(x); if(el) el.classList.add('hidden')});document.getElementById(id).classList.remove('hidden');renderAll();}
+
+renderAll();}
+function renderVeh(){let h='';vehs.forEach((v,i)=>{let pct=Math.round(v.paso/8*100);let steps=pasos.map((p,idx)=>`<div class="step"><div class="dot ${idx<v.paso?'done':idx==v.paso?'doing':''}">${idx<v.paso?'✓':idx+1}</div><span>${p} ${idx==v.paso?'(En proceso)':idx<v.paso?'(Terminado)':''}</span></div>`).join('');h+=`<div class="card" style="margin:12px 0"><b>${v.c} - ${v.a}</b><div class="progress"><div style="width:${pct}%"></div></div><div class="small">${pct}% completado</div>${steps}<button class="btn" onclick="vehs[${i}].paso=Math.min(8,vehs[${i}].paso+1);save();renderAll()">Avanzar al siguiente paso →</button> <button class="btn2" onclick="vehs.splice(${i},1);save();renderAll()">Eliminar</button></div>`});document.getElementById('listaVeh').innerHTML=h||'Aún no hay vehículos en proceso.';}
+function renderHist(){let h='';cots.forEach((c,i)=>{h+=`<div class="item"><span><b>${c.folio}</b> - ${c.cli}<br><span class="small">${c.auto} • ${c.placas} • ${c.fecha}</span></span><b>${c.total}</b></div>`});document.getElementById('listaHist').innerHTML=h||'Aún no hay cotizaciones.';}
+function renderAll(){renderServ();renderCot();renderVeh();renderHist();}
+
+let inv=JSON.parse(localStorage.getItem('je_inv')||'[]');
+function saveInv(){localStorage.setItem('je_inv',JSON.stringify(inv));}
+function addInv(){let n=document.getElementById('iNom').value;let c=Number(document.getElementById('iCant').value||0);let m=Number(document.getElementById('iMin').value||2);let p=Number(document.getElementById('iPre').value||0);let nota=document.getElementById('iNota').value||'';if(!n)return alert('Pon el nombre del material');inv.push({n,c,m,p,nota});saveInv();renderInv();document.getElementById('iNom').value='';document.getElementById('iCant').value='';document.getElementById('iNota').value='';alert('Agregado al inventario');}
+function renderInv(){let h='';inv.forEach((it,i)=>{let bajo=it.c<=it.m;h+=`<div class="item" style="border:${bajo?'2px solid #ff4d5a':'1px solid #333'}"><span><b>${it.n}</b><br><span class="small">${it.nota} • Mínimo: ${it.m} • Costo: $${it.p}</span><br>${bajo?'<b style="color:#ff4d5a">⚠ ¡QUEDA POCO! Hay que comprar</b>':'<span style="color:#22c55e">En stock</span>'}</span><span style="text-align:right"><b style="font-size:20px">${it.c}</b><br><button onclick="inv[${i}].c++;saveInv();renderInv()">+1</button> <button onclick="inv[${i}].c=Math.max(0,inv[${i}].c-1);saveInv();renderInv()">Usar -1</button><br><button onclick="inv.splice(${i},1);saveInv();renderInv()">✕ Borrar</button></span></div>`});document.getElementById('listaInv').innerHTML=h||'Aún no hay material. Agrega tu primer material arriba.';}
+const _oldRenderAll = renderAll;
+renderAll = function(){_oldRenderAll(); renderInv();};
+// include inv in show
+const _oldShow = show;
+show = function(id){['inicio','serv','cot','proc','hist'].forEach(x=>{let el=document.getElementById(x); if(el) el.classList.add('hidden')});document.getElementById(id).classList.remove('hidden');renderAll();}
+
+renderAll();
+</script></body></html><style>.topnav{display:none !important;}</style><style>nav{display:none !important;} .topnav{display:none !important;}</style>
