@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>J&E - Enderezado y Pintura</title>
+<style>
+*{box-sizing:border-box;font-family:Arial,sans-serif}body{margin:0;background:#0a0a0a;color:#fff}
+header{background:radial-gradient(ellipse at top,#2a0004 0%,#000 70%);padding:26px 16px 18px;text-align:center;border-bottom:1px solid #222}
+header img{width:170px;height:170px;object-fit:cover;border-radius:50%;border:4px solid #fff;box-shadow:0 10px 30px rgba(0,0,0,.6),0 0 0 3px #8A1220}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;position:sticky;top:0;background:#000;z-index:99;border-bottom:1px solid #222}
+button{border:0;border-radius:12px;padding:12px 14px;font-weight:700;cursor:pointer}
+.btn{background:#fff;color:#000;border-radius:999px;padding:15px 20px;font-size:16px;font-weight:800;width:100%;margin:6px 0}
+.btn2{background:#222;color:#fff;border:1px solid #444;border-radius:14px;padding:12px 16px}
+.card{background:#171717;margin:14px;border-radius:20px;padding:20px;border:1px solid #262626}
+input,select,textarea{width:100%;padding:13px;border-radius:12px;border:1px solid #333;background:#1f1f1f;color:#fff;margin:5px 0;font-size:15px}
+.row{display:flex;gap:8px}.row>*{flex:1}
+.item{display:flex;justify-content:space-between;gap:8px;background:#1f1f1f;padding:12px;border-radius:14px;margin:6px 0;align-items:center}
+.total{background:#fff;color:#000;border-radius:16px;padding:16px;margin-top:12px;font-size:20px;text-align:right}.total b{color:#8A1220}
+.small{font-size:12px;color:#999}.hidden{display:none}
+.switch{display:flex;justify-content:space-between;align-items:center;background:#1f1f1f;padding:12px;border-radius:12px;margin:8px 0}
+.toggle{width:52px;height:28px;background:#444;border-radius:20px;position:relative;cursor:pointer;flex:none}.toggle.on{background:#16a34a}.toggle:after{content:'';position:absolute;top:3px;left:3px;width:22px;height:22px;background:#fff;border-radius:50%}.toggle.on:after{left:27px}
+.progress{height:12px;background:#333;border-radius:10px;overflow:hidden}.progress div{height:100%;background:#8A1220}
+.step{display:flex;gap:10px;align-items:center;background:#222;padding:10px;border-radius:10px;margin:6px 0}
+.dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#444;flex:none}.done{background:#16a34a}.doing{background:#8A1220}
+#menuTop{display:none;position:fixed;right:0;top:0;height:100%;width:82%;max-width:320px;background:linear-gradient(180deg,#1a0002 0%,#000 100%);z-index:999;padding:22px 18px;box-shadow:-10px 0 30px rgba(0,0,0,.6)}
+#menuTop button{width:100%;text-align:left;padding:16px;margin-bottom:12px;font-size:16px;font-weight:800;display:flex;gap:12px;align-items:center}
+@keyframes slideMenu{from{transform:translateX(100%)}to{transform:translateX(0)}}
+#menuTop.open{display:block;animation:slideMenu .3s ease}
+</style></head><body>
+<div class="topbar"><div><span style="font-size:22px;font-weight:900;letter-spacing:1px;background:linear-gradient(90deg,#fff,#ff4d5a);-webkit-background-clip:text;-webkit-text-fill-color:transparent">J&E</span> <span style="font-size:10px;background:#8A1220;padding:4px 8px;border-radius:999px;font-weight:700">ENDEREZADO Y PINTURA</span></div>
+<button onclick="document.getElementById('menuTop').classList.add('open')" style="background:#fff;color:#000;border-radius:999px;padding:10px 18px;font-weight:800">☰ Menú</button></div>
+<div id="menuTop">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px"><div><div style="font-size:30px;font-weight:900;background:linear-gradient(90deg,#fff,#ff4d5a);-webkit-background-clip:text;-webkit-text-fill-color:transparent">J&E</div><div style="font-size:12px;color:#ccc">Enderezado y Pintura</div></div><button onclick="document.getElementById('menuTop').classList.remove('open')" style="width:38px;height:38px;border-radius:50%;background:#fff;color:#000;padding:0">✕</button></div>
+<div style="font-size:12px;color:#aaa;letter-spacing:2px;margin-bottom:12px">MENÚ PRINCIPAL</div>
+<button onclick="go('inicio')" style="background:#fff;color:#000;border-radius:999px">🏠 Inicio <span style="margin-left:auto">›</span></button>
+<button onclick="go('cot')" style="background:#8A1220;color:#fff;border-radius:16px">🧾 Nueva Cotización <span style="margin-left:auto">›</span></button>
+<button onclick="go('serv')" style="background:#222;color:#fff;border:1px solid #444;border-radius:16px 4px 16px 4px">🔧 Material y Mano de Obra <span style="margin-left:auto">›</span></button>
+<button onclick="go('proc')" style="background:#222;color:#fff;border:1px solid #444;border-radius:50px 16px 16px 50px">🚗 Proceso del Vehículo <span style="margin-left:auto">›</span></button>
+<button onclick="go('hist')" style="background:#222;color:#fff;border:1px solid #444;border-radius:12px">📋 Historial <span style="margin-left:auto">›</span></button>
+<div style="position:absolute;bottom:20px;left:18px;right:18px;text-align:center;font-size:13px;color:#aaa">Tel: 625 111 2443<br>J&E Enderezado y Pintura</div></div>
+
+<header><img src="logo.jpg" alt="J&E"><div style="font-size:44px;font-weight:900;letter-spacing:2px;line-height:1;margin:10px 0 4px;background:linear-gradient(90deg,#fff 20%,#ff4d5a 50%,#fff 80%);-webkit-background-clip:text;-webkit-text-fill-color:transparent">J&E</div><div style="font-size:14px;font-weight:700;letter-spacing:4px;background:#8A1220;display:inline-block;padding:6px 16px;border-radius:999px">✦ ENDEREZADO Y PINTURA ✦</div><div style="color:#ccc;font-size:14px;margin-top:8px">WhatsApp: 625 111 2443</div></header>
+
+<div id="inicio" class="card" style="text-align:center;padding:36px 16px"><h2 style="font-size:30px;margin:8px 0">J&E</h2><p style="color:#ccc">Enderezado y Pintura</p><p style="color:#999;font-size:14px">Cotizaciones rápidas de tu taller</p><br><button class="btn" onclick="go('cot')">+ Nueva Cotización</button><br><br><p style="font-size:13px;color:#888">Tel: 625 111 2443</p></div>
+
+<div id="serv" class="card hidden"><h2>Material y Mano de Obra</h2><p class="small">Agrega tú todo: Material = pintura, pasta, lijas. Mano de Obra = enderezado, pintura, pulido.</p>
+<input id="busc" placeholder="Buscar material o mano de obra..." oninput="renderServ()">
+<div id="listaServ"></div>
+<h3>Agregar Material o Mano de Obra</h3>
+<input id="nNom" placeholder="Nombre ej: Pintura de facia">
+<input id="nPre" type="number" placeholder="Precio ej: 1500">
+<select id="nCat"><option>Material</option><option>Mano de Obra</option><option>Enderezado</option><option>Pintura</option><option>Pulido</option></select>
+<button class="btn" onclick="addServ()">+ Agregar Material / Mano de Obra</button></div>
+
+<div id="cot" class="card hidden"><h2>Nueva Cotización</h2>
+<input id="cCliente" placeholder="Cliente"><input id="cTel" placeholder="Teléfono">
+<div class="row"><input id="cMarca" placeholder="Marca"><input id="cModelo" placeholder="Modelo"></div>
+<div class="row"><input id="cAnio" placeholder="Año"><input id="cPlacas" placeholder="Placas"></div>
+<input id="cColor" placeholder="Color del carro">
+<h3>Agregar Material y Mano de Obra - ¡Puedes agregar VARIOS!</h3><p class="small">Elige uno, dale + Agregar, elige otro, dale + Agregar. Todos se suman en la misma cotización.</p>
+<select id="selServ"></select><div class="row"><input id="selCant" type="number" value="1"><button class="btn" onclick="addToCot()" style="width:auto">+ Agregar</button></div>
+<div id="lineas"></div>
+<label>Descuento $</label><input id="desc" type="number" value="0" oninput="calc()">
+<div class="switch"><span>Cobrar IVA (16%)</span><div id="ivaT" class="toggle on" onclick="this.classList.toggle('on');calc()"></div></div>
+<label>Notas</label><textarea id="notas">Se requiere 50% de anticipo para iniciar el trabajo. Cotización válida por 7 días.</textarea>
+<div class="total">TOTAL: <b id="totalTxt">$0.00</b></div><div class="small" id="desglose"></div>
+<button class="btn" onclick="guardarCot()">Guardar Cotización</button> <button class="btn2" onclick="compartirWA()" style="width:100%;margin-top:6px">Compartir por WhatsApp</button></div>
+
+<div id="proc" class="card hidden"><h2>Proceso del Vehículo</h2><div class="row"><input id="pCliente" placeholder="Cliente"><input id="pAuto" placeholder="Vehículo / Placas"></div><button class="btn" onclick="addVeh()">+ Agregar Vehículo</button><div id="listaVeh"></div></div>
+<div id="hist" class="card hidden"><h2>Historial de Cotizaciones</h2><div id="listaHist"></div></div>
+
+<script>
+let servicios = JSON.parse(localStorage.getItem('je_serv')||'null') || [
+{n:'Enderezado de puerta',p:1200,c:'Mano de Obra'},{n:'Pintura general completa',p:9500,c:'Mano de Obra'},{n:'Pintura por pieza',p:1850,c:'Mano de Obra'},{n:'Pintura de facia',p:1500,c:'Mano de Obra'},{n:'Pulido y abrillantado',p:1200,c:'Mano de Obra'},{n:'Pintura guinda (litro)',p:850,c:'Material'},{n:'Transparente / Clear (litro)',p:650,c:'Material'},{n:'Pasta / Relleno',p:280,c:'Material'},{n:'Lijas (paquete)',p:120,c:'Material'},{n:'Thinner (litro)',p:90,c:'Material'}];
+let cotItems=[], cots=JSON.parse(localStorage.getItem('je_cots')||'[]'), vehs=JSON.parse(localStorage.getItem('je_veh')||'[]');
+let pasos=['Ingreso / Revisión','Desarmado','Enderezado','Preparación / Pasta y lija','Pintura / Cabina','Pulido y abrillantado','Armado y revisión final','Listo para entrega'];
+function save(){localStorage.setItem('je_serv',JSON.stringify(servicios));localStorage.setItem('je_cots',JSON.stringify(cots));localStorage.setItem('je_veh',JSON.stringify(vehs));}
+function go(id){document.getElementById('menuTop').classList.remove('open');['inicio','serv','cot','proc','hist'].forEach(x=>document.getElementById(x).classList.add('hidden'));document.getElementById(id).classList.remove('hidden');renderAll();window.scrollTo(0,0);}
+function show(id){go(id);}
+function fmt(n){return '$'+Number(n).toLocaleString('es-MX',{minimumFractionDigits:2})}
+function renderServ(){
+ let q=(document.getElementById('busc').value||'').toLowerCase();
+ let h=''; servicios.forEach((s,i)=>{ if(!s.n.toLowerCase().includes(q)) return; h+=`<div class="item"><span><b>${s.n}</b><br><span class="small">${s.c}</span></span><span><b>${fmt(s.p)}</b><br><button onclick="addToCotIdx(${i})" style="padding:8px 12px">+ Cotizar</button> <button onclick="delServ(${i})" style="padding:8px 12px">✕</button></span></div>`; });
+ document.getElementById('listaServ').innerHTML=h||'No hay material. Agrega uno abajo.';
+ let sel=document.getElementById('selServ'); if(sel){ sel.innerHTML=servicios.map((s,i)=>`<option value="${i}">${s.n} - ${fmt(s.p)} [${s.c}]</option>`).join(''); }
+}
+function addServ(){ let n=document.getElementById('nNom').value.trim(), p=Number(document.getElementById('nPre').value), c=document.getElementById('nCat').value; if(!n||!p) return alert('Pon nombre y precio'); servicios.push({n,p,c}); save(); renderServ(); document.getElementById('nNom').value=''; document.getElementById('nPre').value=''; alert('Agregado: '+n); }
+function delServ(i){ if(confirm('¿Borrar?')){ servicios.splice(i,1); save(); renderServ(); } }
+function addToCotIdx(i){ go('cot'); document.getElementById('selServ').value=i; addToCot(); }
+function addToCot(){ if(!servicios.length) return alert('Primero agrega Material o Mano de Obra'); let i=Number(document.getElementById('selServ').value||0); let cant=Number(document.getElementById('selCant').value||1); let s=servicios[i]; if(!s) return alert('Elige un producto'); cotItems.push({n:s.n,p:s.p,cant}); renderCot(); }
+function renderCot(){ let h=''; cotItems.forEach((it,i)=>{ h+=`<div class="item"><span>${it.n} x ${it.cant}</span><span>${fmt(it.p*it.cant)} <button onclick="cotItems.splice(${i},1);renderCot()" style="padding:6px 10px">✕</button></span></div>`; }); document.getElementById('lineas').innerHTML=h||'<p class="small">Aún no agregas productos. Elige uno arriba y dale + Agregar.</p>'; calc(); }
+function calc(){ let sub=cotItems.reduce((a,b)=>a+b.p*b.cant,0); let desc=Number(document.getElementById('desc').value||0); let ivaOn=document.getElementById('ivaT').classList.contains('on'); let iva=ivaOn?Math.max(0,(sub-desc)*0.16):0; let tot=sub-desc+iva; document.getElementById('totalTxt').textContent=fmt(tot); document.getElementById('desglose').textContent=`Subtotal ${fmt(sub)} • Descuento ${fmt(desc)} • IVA ${fmt(iva)}`; }
+function guardarCot(){ if(!cotItems.length) return alert('Agrega al menos 1 producto'); let cli=document.getElementById('cCliente').value||'Sin nombre'; let folio='J&E-'+String(cots.length+1).padStart(3,'0'); cots.unshift({folio,cli,auto:document.getElementById('cMarca').value+' '+document.getElementById('cModelo').value+' '+document.getElementById('cAnio').value,placas:document.getElementById('cPlacas').value,total:document.getElementById('totalTxt').textContent,fecha:new Date().toLocaleDateString()}); save(); cotItems=[]; renderCot(); alert('Cotización '+folio+' guardada'); go('hist'); }
+function compartirWA(){ let cli=document.getElementById('cCliente').value||''; let auto=document.getElementById('cMarca').value+' '+document.getElementById('cModelo').value; let txt=`J&E Enderezado y Pintura%0ACliente: ${cli}%0AVehículo: ${auto}%0ATotal: ${document.getElementById('totalTxt').textContent}%0AWhatsApp: 625 111 2443`; window.open('https://wa.me/526251112443?text='+txt,'_blank'); }
+function addVeh(){ let c=document.getElementById('pCliente').value||'Cliente'; let a=document.getElementById('pAuto').value||'Vehículo'; vehs.push({c,a,paso:0}); save(); renderVeh(); }
+function renderVeh(){ let h=''; vehs.forEach((v,i)=>{ let pct=Math.round(v.paso/8*100); let steps=pasos.map((p,idx)=>`<div class="step"><div class="dot ${idx<v.paso?'done':idx==v.paso?'doing':''}">${idx<v.paso?'✓':idx+1}</div><span>${p}</span></div>`).join(''); h+=`<div class="card" style="margin:12px 0"><b>${v.c} - ${v.a}</b><div class="progress"><div style="width:${pct}%"></div></div><div class="small">${pct}% completado</div>${steps}<button class="btn" onclick="vehs[${i}].paso=Math.min(8,vehs[${i}].paso+1);save();renderAll()">Avanzar →</button> <button class="btn2" onclick="vehs.splice(${i},1);save();renderAll()" style="width:100%">Eliminar</button></div>`; }); document.getElementById('listaVeh').innerHTML=h||'Aún no hay vehículos.'; }
+function renderHist(){ let h=''; cots.forEach(c=>{ h+=`<div class="item"><span><b>${c.folio}</b> - ${c.cli}<br><span class="small">${c.auto} • ${c.placas} • ${c.fecha}</span></span><b>${c.total}</b></div>`; }); document.getElementById('listaHist').innerHTML=h||'Aún no hay cotizaciones.'; }
+function renderAll(){ renderServ(); renderCot(); renderVeh(); renderHist(); }
+renderAll();
+</script></body></html>
